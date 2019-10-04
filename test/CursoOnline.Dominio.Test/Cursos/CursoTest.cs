@@ -1,26 +1,60 @@
-﻿using ExpectedObjects;
+﻿using CursoOnline.Dominio.Test._Builders;
+using CursoOnline.Dominio.Test._Util;
+using ExpectedObjects;
 using System;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace CursoOnline.Dominio.Test.Cursos
 {
-    public class CursoTest
+    public class CursoTest : IDisposable
     {
+        #region Atributos
+        private readonly ITestOutputHelper _output;
+        private readonly string _nome;
+        private readonly double _cargaHoraria;
+        private readonly PublicoAlvo _publicoAlvo;
+        private readonly double _valor;
+        private readonly string _descricao;
+
+        #endregion
+
+        #region Construtores e Dispose
+        public CursoTest(ITestOutputHelper output)
+        {
+            _output = output;
+            _output.WriteLine("Construtor sendo Executado.");
+
+            _nome = "Informática Básica";
+            _cargaHoraria = 80;
+            _publicoAlvo = PublicoAlvo.Estudante;
+            _valor = 950;
+            _descricao = "Uma descrição";
+        }
+
+        public void Dispose()
+        {
+            _output.WriteLine("Dispose sendo Executado.");
+        }
+        #endregion
+
+        #region Testes
         [Fact]
         public void DeveCriarCurso()
         {
             #region Arrange (Organização)
             var cursoEsperado = new
             {
-                Nome = "Informática Básica",
-                CargaHoraria = (double)80,
-                PublicoAlvo = "Estudantes",
-                Valor = (double)950
+                Nome = _nome,
+                CargaHoraria = _cargaHoraria,
+                PublicoAlvo = _publicoAlvo,
+                Valor = _valor,
+                Descricao = _descricao
             };
             #endregion
 
             #region Act (Ação)
-            var curso = new Curso(cursoEsperado.Nome, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, cursoEsperado.Valor);
+            var curso = new Curso(cursoEsperado.Nome, cursoEsperado.Descricao, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, cursoEsperado.Valor);
             #endregion
 
             #region Assert (Afirmação)
@@ -34,23 +68,15 @@ namespace CursoOnline.Dominio.Test.Cursos
         public void NaoDeveCursoTerUmNomeInvalido(string nomeInvalido)
         {
             #region Arrange (Organização
-            var cursoEsperado = new
-            {
-                Nome = "Informática Básica",
-                CargaHoraria = (double)80,
-                PublicoAlvo = "Estudantes",
-                Valor = (double)950
-            };
             #endregion
 
             #region Act (Ação)
-            var message = Assert.Throws<ArgumentException>(() =>
-                new Curso(nomeInvalido, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, cursoEsperado.Valor)
-            ).Message;
             #endregion
 
             #region Assert (Afirmação)
-            Assert.Equal("Nome obrigatório.", message);
+            Assert.Throws<ArgumentException>(() =>
+                CursoBuilder.Novo().ComNome(nomeInvalido).Build()
+            ).ComMensagem("Nome obrigatório.");
             #endregion
         }
 
@@ -60,24 +86,16 @@ namespace CursoOnline.Dominio.Test.Cursos
         [InlineData(-100)]
         public void NaoDeveCursoTerUmaCargaHorariaMenorQue1(double cargaHorariaInvalida)
         {
-            #region Arrange (Organização
-            var cursoEsperado = new
-            {
-                Nome = "Informática Básica",
-                CargaHoraria = (double)80,
-                PublicoAlvo = "Estudantes",
-                Valor = (double)950
-            };
+            #region Arrange (Organização)
             #endregion
 
             #region Act (Ação)
-            var message = Assert.Throws<ArgumentException>(() =>
-                new Curso(cursoEsperado.Nome, cargaHorariaInvalida, cursoEsperado.PublicoAlvo, cursoEsperado.Valor)
-            ).Message;
             #endregion
 
             #region Assert (Afirmação)
-            Assert.Equal("Carga horária deve ser maior que 1 hora.", message);
+            Assert.Throws<ArgumentException>(() =>
+                CursoBuilder.Novo().ComCargaHoraria(cargaHorariaInvalida).Build()
+            ).ComMensagem("Carga horária deve ser maior que 1 hora.");
             #endregion
         }
 
@@ -87,32 +105,25 @@ namespace CursoOnline.Dominio.Test.Cursos
         [InlineData(-100)]
         public void NaoDeveCursoTerUmValorMenorQue1(double ValorInvalido)
         {
-            #region Arrange (Organização
-            var cursoEsperado = new
-            {
-                Nome = "Informática Básica",
-                CargaHoraria = (double)80,
-                PublicoAlvo = "Estudantes",
-                Valor = (double)950
-            };
+            #region Arrange (Organização)
             #endregion
 
             #region Act (Ação)
-            var message = Assert.Throws<ArgumentException>(() =>
-                new Curso(cursoEsperado.Nome, cursoEsperado.CargaHoraria, cursoEsperado.PublicoAlvo, ValorInvalido)
-            ).Message;
             #endregion
 
             #region Assert (Afirmação)
-            Assert.Equal("Valor deve ser maior que R$1,00.", message);
+            Assert.Throws<ArgumentException>(() =>
+                CursoBuilder.Novo().ComValor(ValorInvalido).Build()
+            ).ComMensagem("Valor deve ser maior que R$1,00.");
             #endregion
         }
+        #endregion
     }
 
     public class Curso
     {
         #region Constructors
-        public Curso(string nome, double cargaHoraria, string publicoAlvo, double valor)
+        public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
             if (string.IsNullOrEmpty(nome))
             {
@@ -130,6 +141,7 @@ namespace CursoOnline.Dominio.Test.Cursos
             }
 
             Nome = nome;
+            Descricao = descricao;
             CargaHoraria = cargaHoraria;
             PublicoAlvo = publicoAlvo;
             Valor = valor;
@@ -138,9 +150,18 @@ namespace CursoOnline.Dominio.Test.Cursos
 
         #region Attributes
         public string Nome { get; private set; }
+        public string Descricao { get; private set; }
         public double CargaHoraria { get; private set; }
-        public string PublicoAlvo { get; private set; }
+        public PublicoAlvo PublicoAlvo { get; private set; }
         public double Valor { get; private set; }
         #endregion
+    }
+
+    public enum PublicoAlvo
+    {
+        Estudante,
+        Universitario,
+        Empregado,
+        Empreendedor
     }
 }
