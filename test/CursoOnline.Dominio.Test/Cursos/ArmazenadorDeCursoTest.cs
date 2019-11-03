@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using CursoOnline.Dominio.Domain;
+using CursoOnline.Dominio.Test._Builders;
 using CursoOnline.Dominio.Test._Util;
 using Moq;
 using System;
@@ -7,6 +8,10 @@ using Xunit;
 
 namespace CursoOnline.Dominio.Test.Cursos
 {
+    //  Mock Vs Stub
+    //  Mock Envolve a verificação do Dado
+    //  Stub Serve para geração de Dado para validar regra de negócio
+
     public class ArmazenadorDeCursoTest
     {
         #region Atributos
@@ -52,8 +57,18 @@ namespace CursoOnline.Dominio.Test.Cursos
                     c.Nome.Equals(_cursoDto.Nome) &&
                     c.Descricao.Equals(_cursoDto.Descricao)
                 ))  // Verifica se a instância recebida é a mesma esperada e se os atributos são idênticos aos enviados
-                );
+            );
             #endregion
+        }
+
+        [Fact]
+        public void NaoDeveAdicionarCursoComMesmoNomeDeOutroJaSalvo()
+        {
+            var cursoJaSalvo = CursoBuilder.Novo().ComNome(_cursoDto.Nome).Build();
+            _cursoRepositoryMock.Setup(r => r.ObterPeloNome(_cursoDto.Nome)).Returns(cursoJaSalvo);
+
+            Assert.Throws<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
+            .ComMensagem("Nome do Curso já consta no banco de dados.");
         }
 
         [Fact]
@@ -66,56 +81,6 @@ namespace CursoOnline.Dominio.Test.Cursos
             Assert.Throws<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
                 .ComMensagem("Publico Algo inválido.");
         }
-
-        #endregion
-    }
-
-    public interface ICursoRepositorio
-    {
-        #region Métodos
-        void Adicionar(Curso curso);
-        void Atualizar(Curso curso);
-        #endregion
-    }
-
-    public class ArmazenadorDeCurso
-    {
-        #region Atributos
-        private readonly ICursoRepositorio _cursoRepositorio;
-        #endregion
-
-        #region Construtores
-        public ArmazenadorDeCurso(ICursoRepositorio cursoRepositorio)
-        {
-            _cursoRepositorio = cursoRepositorio;
-        }
-        #endregion
-
-        #region Métodos
-        public void Armazenar(CursoDto cursoDto)
-        {
-            Enum.TryParse(typeof(PublicoAlvo), cursoDto.PublicoAlvo, out var publicoAlvo);
-
-            if (publicoAlvo == null)
-            {
-                throw new ArgumentException("Publico Algo inválido.");
-            }
-
-            var curso = new Curso(cursoDto.Nome, cursoDto.Descricao, cursoDto.CargaHoraria, (PublicoAlvo)publicoAlvo, cursoDto.Valor);
-
-            _cursoRepositorio.Adicionar(curso);
-        }
-        #endregion
-    }
-
-    public class CursoDto
-    {
-        #region Atributos
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public double CargaHoraria { get; set; }
-        public string PublicoAlvo { get; set; }
-        public double Valor { get; set; }
         #endregion
     }
 }
