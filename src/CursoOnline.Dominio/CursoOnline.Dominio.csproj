@@ -4,4 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Alunos\" />
+    <Folder Include="Cursos\" />
+    <Folder Include="Matriculas\" />
+    <Folder Include="PublicoAlvo\" />
+  </ItemGroup>
+
 </Project>

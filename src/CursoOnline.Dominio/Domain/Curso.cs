@@ -1,9 +1,18 @@
-﻿using System;
+﻿using CursoOnline.Dominio._Base;
+using System;
 
 namespace CursoOnline.Dominio.Domain
 {
-    public class Curso
+    public class Curso : Entidade
     {
+        #region Atributos
+        public string Nome { get; private set; }
+        public string Descricao { get; private set; }
+        public double CargaHoraria { get; private set; }
+        public PublicoAlvo PublicoAlvo { get; private set; }
+        public double Valor { get; private set; }
+        #endregion
+
         #region Construtores
         public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
@@ -28,14 +37,6 @@ namespace CursoOnline.Dominio.Domain
             PublicoAlvo = publicoAlvo;
             Valor = valor;
         }
-        #endregion
-
-        #region Atributos
-        public string Nome { get; private set; }
-        public string Descricao { get; private set; }
-        public double CargaHoraria { get; private set; }
-        public PublicoAlvo PublicoAlvo { get; private set; }
-        public double Valor { get; private set; }
         #endregion
     }
 }
