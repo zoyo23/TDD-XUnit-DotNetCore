@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Alunos\" />
-    <Folder Include="Cursos\" />
     <Folder Include="Matriculas\" />
     <Folder Include="PublicoAlvo\" />
   </ItemGroup>

@@ -5,6 +5,7 @@ namespace CursoOnline.Dominio.Test._Util
 {
     public static class AssertExtension
     {
+        #region Métodos
         public static void ComMensagem(this ArgumentException exception, string mensagem)
         {
             if (exception.Message.Equals(mensagem))
@@ -16,5 +17,6 @@ namespace CursoOnline.Dominio.Test._Util
                 Assert.False(true, $"Mensagem Esperada: '{mensagem}' | Mensagem Recebida: '{exception.Message}'");
             }
         }
+        #endregion
     }
 }

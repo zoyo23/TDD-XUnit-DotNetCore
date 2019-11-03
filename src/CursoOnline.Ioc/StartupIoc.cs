@@ -11,7 +11,7 @@ namespace CursoOnline.Ioc
 {
     public static class StartupIoc
     {
-        public static void ConfigureService(IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration["ConnectionString"])
@@ -19,6 +19,7 @@ namespace CursoOnline.Ioc
 
             services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
             services.AddScoped<ICursoRepositorio, CursoRepositorio>();
+
             services.AddScoped<ArmazenadorDeCurso>();
         }
     }
