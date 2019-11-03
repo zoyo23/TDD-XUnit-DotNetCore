@@ -17,4 +17,8 @@
     <PackageReference Include="ExpectedObjects" Version="2.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CursoOnline.Dominio\CursoOnline.Dominio.csproj" />
+  </ItemGroup>
+
 </Project>
