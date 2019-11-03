@@ -4,7 +4,7 @@ namespace CursoOnline.Dominio.Domain
 {
     public class Curso
     {
-        #region Constructors
+        #region Construtores
         public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
             if (string.IsNullOrEmpty(nome))
@@ -30,7 +30,7 @@ namespace CursoOnline.Dominio.Domain
         }
         #endregion
 
-        #region Attributes
+        #region Atributos
         public string Nome { get; private set; }
         public string Descricao { get; private set; }
         public double CargaHoraria { get; private set; }
