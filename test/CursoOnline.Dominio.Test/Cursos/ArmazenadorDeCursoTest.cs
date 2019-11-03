@@ -1,4 +1,5 @@
-﻿using CursoOnline.Dominio.Domain;
+﻿using Bogus;
+using CursoOnline.Dominio.Domain;
 using Moq;
 using Xunit;
 
@@ -6,31 +7,50 @@ namespace CursoOnline.Dominio.Test.Cursos
 {
     public class ArmazenadorDeCursoTest
     {
+        #region Atributos
+        private readonly CursoDto _cursoDto;
+        private readonly ArmazenadorDeCurso _armazenadorDeCurso;
+        private readonly Mock<ICursoRepositorio> _cursoRepositoryMock;
+        #endregion
+
+        #region Construtores
+        public ArmazenadorDeCursoTest()
+        {
+            var fake = new Faker();
+
+            _cursoDto = new CursoDto
+            {
+                Nome = fake.Random.Words(),
+                Descricao = fake.Lorem.Paragraph(),
+                CargaHoraria = fake.Random.Double(50, 1000),
+                PublicoAlvo = 1,
+                Valor = fake.Random.Double(1000, 2000)
+            };
+
+            _cursoRepositoryMock = new Mock<ICursoRepositorio>();
+
+            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositoryMock.Object);
+        }
+        #endregion
+
         #region Testes
         [Fact]
         public void DeveAdicionarCurso()
         {
             #region Arrange
-            var cursoDto = new CursoDto
-            {
-                Nome = "Curso A",
-                Descricao = "Descrição",
-                CargaHoraria = 80,
-                PublicoAlvo = 1,
-                Valor = 850.00
-            };
-
-            var cursoRepositoryMock = new Mock<ICursoRepositorio>();
-
-            var armazenadorDeCurso = new ArmazenadorDeCurso(cursoRepositoryMock.Object);
             #endregion
 
             #region Act
-            armazenadorDeCurso.Armazenar(cursoDto);
+            _armazenadorDeCurso.Armazenar(_cursoDto);
             #endregion
 
             #region Assert
-            cursoRepositoryMock.Verify(r => r.Adicionar(It.IsAny<Curso>()));
+            _cursoRepositoryMock.Verify(r => r.Adicionar(
+                It.Is<Curso>(c =>
+                    c.Nome.Equals(_cursoDto.Nome) &&
+                    c.Descricao.Equals(_cursoDto.Descricao)
+                ))  // Verifica se a instância recebida é a mesma esperada e se os atributos são idênticos aos enviados
+                );
             #endregion
         }
         #endregion
@@ -72,7 +92,7 @@ namespace CursoOnline.Dominio.Test.Cursos
         #region Atributos
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public int CargaHoraria { get; set; }
+        public double CargaHoraria { get; set; }
         public int PublicoAlvo { get; set; }
         public double Valor { get; set; }
         #endregion
