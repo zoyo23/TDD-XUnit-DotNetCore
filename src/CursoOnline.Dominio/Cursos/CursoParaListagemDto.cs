@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CursoOnline.Dominio.Cursos
+﻿namespace CursoOnline.Dominio.Cursos
 {
     public class CursoParaListagemDto
     {

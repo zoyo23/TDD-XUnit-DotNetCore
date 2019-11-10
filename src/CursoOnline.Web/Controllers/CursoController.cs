@@ -36,7 +36,7 @@ namespace CursoOnline.Web.Controllers
         public IActionResult Salvar(CursoDto model)
         {
             _armazenadorDeCurso.Armazenar(model);
-            return Ok();
+             return Ok();
         }
     }
 }

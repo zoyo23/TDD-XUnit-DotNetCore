@@ -19,6 +19,7 @@ namespace CursoOnline.Ioc
 
             services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
             services.AddScoped<ICursoRepositorio, CursoRepositorio>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ArmazenadorDeCurso>();
         }
