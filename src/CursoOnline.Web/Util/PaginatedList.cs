@@ -15,9 +15,9 @@ namespace CursoOnline.Web.Util
 
         #region Métodos
         #region Métodos Públicos
-        public bool HasPreviousPage => (PageIndex > 1);
+        public bool HasPreviousPage => PageIndex > 1;
 
-        public bool HasNextPage => (PageIndex < TotalPages);
+        public bool HasNextPage => PageIndex < TotalPages;
 
         public static PaginatedList<T> Create(IEnumerable<T> source, HttpRequest request)
         {

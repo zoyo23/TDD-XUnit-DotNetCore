@@ -13,10 +13,7 @@ namespace CursoOnline.Dominio.Test._Builders
         #endregion
 
         #region Métodos
-        public static CursoBuilder Novo()
-        {
-            return new CursoBuilder();
-        }
+        public static CursoBuilder Novo() => new CursoBuilder();
 
         public Curso Build()
         {

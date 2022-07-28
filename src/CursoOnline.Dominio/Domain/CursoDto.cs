@@ -1,5 +1,8 @@
-﻿namespace CursoOnline.Dominio.Domain
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CursoOnline.Dominio.Domain
 {
+    [ExcludeFromCodeCoverage]
     public class CursoDto
     {
         #region Atributos

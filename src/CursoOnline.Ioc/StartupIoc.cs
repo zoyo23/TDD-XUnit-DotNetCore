@@ -17,6 +17,7 @@ namespace CursoOnline.Ioc
                 options.UseSqlServer(configuration["ConnectionString"])
             );
 
+
             services.AddScoped(typeof(IRepositorio<>), typeof(RepositorioBase<>));
             services.AddScoped<ICursoRepositorio, CursoRepositorio>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

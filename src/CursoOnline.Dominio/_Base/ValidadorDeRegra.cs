@@ -20,7 +20,9 @@ namespace CursoOnline.Dominio._Base
         public ValidadorDeRegra Quando(bool temErro, string mensagemDeErro)
         {
             if (temErro)
+            {
                 _mensagensDeErros.Add(mensagemDeErro);
+            }
 
             return this;
         }
@@ -28,7 +30,9 @@ namespace CursoOnline.Dominio._Base
         public void DispararExcecaoSeExistir()
         {
             if (_mensagensDeErros.Any())
+            {
                 throw new ExcecaoDeDominio(_mensagensDeErros);
+            }
         }
         #endregion
 

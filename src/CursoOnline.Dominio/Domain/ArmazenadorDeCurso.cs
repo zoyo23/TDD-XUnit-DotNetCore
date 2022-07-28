@@ -18,9 +18,9 @@ namespace CursoOnline.Dominio.Domain
         #region Métodos
         public void Armazenar(CursoDto cursoDto)
         {
-            if (!Enum.TryParse<PublicoAlvo>(cursoDto.PublicoAlvo, out var publicoAlvo))
+            if (!Enum.TryParse<PublicoAlvo>(cursoDto.PublicoAlvo, out PublicoAlvo publicoAlvo))
             {
-                throw new ArgumentException("Publico Algo inválido.");
+                throw new ArgumentException("Público Alvo inválido.");
             }
 
             var cursoJaSalvo = _cursoRepositorio.ObterPeloNome(cursoDto.Nome);

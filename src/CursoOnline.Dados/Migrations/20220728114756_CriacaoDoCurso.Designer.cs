@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CursoOnline.Dados.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191110180638_CriacaoDoCurso")]
+    [Migration("20220728114756_CriacaoDoCurso")]
     partial class CriacaoDoCurso
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

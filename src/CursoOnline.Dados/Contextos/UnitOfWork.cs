@@ -1,4 +1,4 @@
-﻿using CursoOnline.Dominio._Base;
+﻿ using CursoOnline.Dominio._Base;
 using System.Threading.Tasks;
 
 namespace CursoOnline.Dados.Contextos

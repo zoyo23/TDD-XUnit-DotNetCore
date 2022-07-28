@@ -1,5 +1,8 @@
-﻿namespace CursoOnline.Dominio.Cursos
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace CursoOnline.Dominio.Cursos
 {
+    [ExcludeFromCodeCoverage]
     public class CursoParaListagemDto
     {
         public int Id { get; set; }

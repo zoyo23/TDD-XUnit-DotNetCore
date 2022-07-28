@@ -8,10 +8,6 @@ using Xunit;
 
 namespace CursoOnline.Dominio.Test.Cursos
 {
-    //  Mock Vs Stub
-    //  Mock Envolve a verificação do Dado
-    //  Stub Serve para geração de Dado para validar regra de negócio
-
     public class ArmazenadorDeCursoTest
     {
         #region Atributos
@@ -53,10 +49,11 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert
             _cursoRepositoryMock.Verify(r => r.Adicionar(
-                It.Is<Curso>(c =>
-                    c.Nome.Equals(_cursoDto.Nome) &&
-                    c.Descricao.Equals(_cursoDto.Descricao)
-                ))  // Verifica se a instância recebida é a mesma esperada e se os atributos são idênticos aos enviados
+                    It.Is<Curso>(c =>
+                        c.Nome.Equals(_cursoDto.Nome) &&
+                        c.Descricao.Equals(_cursoDto.Descricao)
+                    )
+                )
             );
             #endregion
         }
@@ -64,22 +61,35 @@ namespace CursoOnline.Dominio.Test.Cursos
         [Fact]
         public void NaoDeveAdicionarCursoComMesmoNomeDeOutroJaSalvo()
         {
+            #region Arrange (Organização)
             var cursoJaSalvo = CursoBuilder.Novo().ComNome(_cursoDto.Nome).Build();
             _cursoRepositoryMock.Setup(r => r.ObterPeloNome(_cursoDto.Nome)).Returns(cursoJaSalvo);
+            #endregion
 
+            #region Act (Ação)
+            #endregion            
+
+            #region Assert (Afirmação)
             Assert.Throws<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
-            .ComMensagem("Nome do Curso já consta no banco de dados.");
+                .ComMensagem("Nome do Curso já consta no banco de dados.");
+            #endregion
         }
 
         [Fact]
         public void NaoDeveInformarPublicoAlvoInvalido()
         {
-            var publicoAlvoInvalido = "Medico";
-
+            #region Arrange (Organização)
+            var publicoAlvoInvalido = "Médico";
             _cursoDto.PublicoAlvo = publicoAlvoInvalido;
+            #endregion
 
+            #region Act (Ação)
+            #endregion
+
+            #region Assert (Afirmação)
             Assert.Throws<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
-                .ComMensagem("Publico Algo inválido.");
+                .ComMensagem("Público Alvo inválido.");
+            #endregion
         }
         #endregion
     }

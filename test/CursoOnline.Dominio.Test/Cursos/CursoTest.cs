@@ -70,7 +70,7 @@ namespace CursoOnline.Dominio.Test.Cursos
         [InlineData(null)]
         public void NaoDeveCursoTerUmNomeInvalido(string nomeInvalido)
         {
-            #region Arrange (Organização
+            #region Arrange (Organização)
             #endregion
 
             #region Act (Ação)
@@ -78,7 +78,9 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ArgumentException>(() =>
-                CursoBuilder.Novo().ComNome(nomeInvalido).Build()
+                CursoBuilder.Novo()
+                    .ComNome(nomeInvalido)
+                .Build()
             ).ComMensagem("Nome obrigatório.");
             #endregion
         }
@@ -97,7 +99,9 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ArgumentException>(() =>
-                CursoBuilder.Novo().ComCargaHoraria(cargaHorariaInvalida).Build()
+                CursoBuilder.Novo()
+                    .ComCargaHoraria(cargaHorariaInvalida)
+                .Build()
             ).ComMensagem("Carga horária deve ser maior que 1 hora.");
             #endregion
         }
@@ -116,7 +120,9 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ArgumentException>(() =>
-                CursoBuilder.Novo().ComValor(ValorInvalido).Build()
+                CursoBuilder.Novo()
+                    .ComValor(ValorInvalido)
+                .Build()
             ).ComMensagem("Valor deve ser maior que R$1,00.");
             #endregion
         }
