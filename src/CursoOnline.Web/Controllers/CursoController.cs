@@ -1,8 +1,9 @@
-﻿using CursoOnline.Dominio.Cursos;
+﻿using CursoOnline.Dominio._Base;
+using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.Domain;
 using CursoOnline.Web.Util;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace CursoOnline.Web.Controllers
 {
@@ -10,19 +11,36 @@ namespace CursoOnline.Web.Controllers
     {
         #region Atributos
         private readonly ArmazenadorDeCurso _armazenadorDeCurso;
+        private readonly IRepositorio<Curso> _cursoRepositorio;
         #endregion
 
         #region Construtores
-        public CursoController(ArmazenadorDeCurso armazenadorDeCurso)
+        public CursoController(ArmazenadorDeCurso armazenadorDeCurso, IRepositorio<Curso> cursoRepositorio)
         {
             _armazenadorDeCurso = armazenadorDeCurso;
+            _cursoRepositorio = cursoRepositorio;
         }
         #endregion
 
         public IActionResult Index()
         {
-            var cursos = new List<CursoParaListagemDto>();
-            return View("Index", PaginatedList<CursoParaListagemDto>.Create(cursos, Request));
+            var cursos = _cursoRepositorio.Consultar();
+
+            if (cursos.Any())
+            {
+                var dtos = cursos.Select(c => new CursoParaListagemDto
+                {
+                    Id = c.Id,
+                    Nome = c.Nome,
+                    CargaHoraria = c.CargaHoraria,
+                    PublicoAlvo = c.PublicoAlvo.ToString(),
+                    Valor = c.Valor
+                });
+
+                return View("Index", PaginatedList<CursoParaListagemDto>.Create(dtos, Request));
+            }
+
+            return View("Index", PaginatedList<CursoParaListagemDto>.Create(null, Request));
         }
 
         public IActionResult Novo()

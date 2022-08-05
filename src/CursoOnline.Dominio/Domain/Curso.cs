@@ -14,6 +14,8 @@ namespace CursoOnline.Dominio.Domain
         #endregion
 
         #region Construtores
+        private Curso() { }
+
         public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
             if (string.IsNullOrEmpty(nome))
