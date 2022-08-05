@@ -1,5 +1,4 @@
 ﻿using CursoOnline.Dominio._Base;
-using System;
 
 namespace CursoOnline.Dominio.Domain
 {
@@ -18,20 +17,11 @@ namespace CursoOnline.Dominio.Domain
 
         public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
-            if (string.IsNullOrEmpty(nome))
-            {
-                throw new ArgumentException("Nome obrigatório.");
-            }
-
-            if (cargaHoraria < 1)
-            {
-                throw new ArgumentException("Carga horária deve ser maior que 1 hora.");
-            }
-
-            if (valor < 1)
-            {
-                throw new ArgumentException("Valor deve ser maior que R$1,00.");
-            }
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), "Nome obrigatório.")
+                .Quando(cargaHoraria < 1, "Carga horária deve ser maior que 1 hora.")
+                .Quando(valor < 1, "Valor deve ser maior que R$1,00.")
+                .DispararExcecaoSeExistir();
 
             Nome = nome;
             Descricao = descricao;
