@@ -10,10 +10,9 @@ using Xunit.Abstractions;
 
 namespace CursoOnline.Dominio.Test.Cursos
 {
-    public class CursoTest : IDisposable
+    public class CursoTest
     {
         #region Atributos
-        private readonly ITestOutputHelper _output;
         private readonly Faker _faker;
         private readonly string _nome;
         private readonly double _cargaHoraria;
@@ -24,10 +23,8 @@ namespace CursoOnline.Dominio.Test.Cursos
         #endregion
 
         #region Construtores e Dispose
-        public CursoTest(ITestOutputHelper output)
+        public CursoTest()
         {
-            _output = output;
-            _output.WriteLine("Construtor sendo Executado.");
             _faker = new Faker();
 
             _nome = _faker.Random.Word();
@@ -35,11 +32,6 @@ namespace CursoOnline.Dominio.Test.Cursos
             _publicoAlvo = PublicoAlvo.Estudante;
             _valor = _faker.Random.Double(100, 1000);
             _descricao = _faker.Lorem.Paragraph();
-        }
-
-        public void Dispose()
-        {
-            _output.WriteLine("Dispose sendo Executado.");
         }
         #endregion
 
@@ -83,7 +75,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
-                .ComMensagem("Nome Inválido.");
+                .ComMensagem(Resource.NomeInvalido);
             #endregion
         }
 
@@ -104,7 +96,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
-                .ComMensagem("Carga horária deve ser maior que 1 hora.");
+                .ComMensagem(Resource.CargaHorariaInvalida);
             #endregion
         }
 
@@ -125,7 +117,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
-                .ComMensagem("Valor deve ser maior que R$1,00.");
+                .ComMensagem(Resource.ValorInvalido);
             #endregion
         }
 
@@ -161,7 +153,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
-                .ComMensagem("Nome Inválido.");
+                .ComMensagem(Resource.NomeInvalido);
             #endregion
         }
 
@@ -198,7 +190,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
-                .ComMensagem("Carga horária deve ser maior que 1 hora.");
+                .ComMensagem(Resource.CargaHorariaInvalida);
             #endregion
         }
 
@@ -235,7 +227,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
-                .ComMensagem("Valor deve ser maior que R$1,00.");
+                .ComMensagem(Resource.ValorInvalido);
             #endregion
         }
         #endregion
