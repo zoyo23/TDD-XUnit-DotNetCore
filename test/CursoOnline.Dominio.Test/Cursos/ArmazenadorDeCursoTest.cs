@@ -4,7 +4,6 @@ using CursoOnline.Dominio.Domain;
 using CursoOnline.Dominio.Test._Builders;
 using CursoOnline.Dominio.Test._Util;
 using Moq;
-using System;
 using Xunit;
 
 namespace CursoOnline.Dominio.Test.Cursos
@@ -72,7 +71,7 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
-                .ComMensagem("Nome do Curso já consta no banco de dados.");
+                .ComMensagem(Resource.NomeCursoJaExiste);
             #endregion
         }
 
@@ -89,7 +88,49 @@ namespace CursoOnline.Dominio.Test.Cursos
 
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
-                .ComMensagem("Público Alvo inválido.");
+                .ComMensagem(Resource.PublicoAlvoInvalido);
+            #endregion
+        }
+
+        [Fact]
+        public void DeveAlterarDadosDoCurso()
+        {
+            #region Arrange
+            _cursoDto.Id = 323;
+            var curso = CursoBuilder.Novo().Build();
+
+            _cursoRepositoryMock.Setup(r => r.ObterPorId(_cursoDto.Id))
+                .Returns(curso);
+            #endregion
+
+            #region Act
+            _armazenadorDeCurso.Armazenar(_cursoDto);
+            #endregion
+
+            #region Assert
+            Assert.Equal(_cursoDto.Nome, curso.Nome);
+            Assert.Equal(_cursoDto.Valor, curso.Valor);
+            Assert.Equal(_cursoDto.CargaHoraria, curso.CargaHoraria);
+            #endregion
+        }
+
+        [Fact]
+        public void NaoDeveAdicionarNoRepositorioQuandoCursoJaExiste()
+        {
+            #region Arrange
+            _cursoDto.Id = 323;
+            var curso = CursoBuilder.Novo().Build();
+
+            _cursoRepositoryMock.Setup(r => r.ObterPorId(_cursoDto.Id))
+                .Returns(curso);
+            #endregion
+
+            #region Act
+            _armazenadorDeCurso.Armazenar(_cursoDto);
+            #endregion
+
+            #region Assert
+            _cursoRepositoryMock.Verify(r => r.Adicionar(It.IsAny<Curso>()), Times.Never);
             #endregion
         }
         #endregion
