@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CursoOnline.Dominio._Base;
+using System;
 
 namespace CursoOnline.Dominio.Domain
 {
@@ -18,17 +19,12 @@ namespace CursoOnline.Dominio.Domain
         #region Métodos
         public void Armazenar(CursoDto cursoDto)
         {
-            if (!Enum.TryParse<PublicoAlvo>(cursoDto.PublicoAlvo, out PublicoAlvo publicoAlvo))
-            {
-                throw new ArgumentException("Público Alvo inválido.");
-            }
-
             var cursoJaSalvo = _cursoRepositorio.ObterPeloNome(cursoDto.Nome);
 
-            if (cursoJaSalvo != null)
-            {
-                throw new ArgumentException("Nome do Curso já consta no banco de dados.");
-            }
+            ValidadorDeRegra.Novo()
+                .Quando(!Enum.TryParse<PublicoAlvo>(cursoDto.PublicoAlvo, out PublicoAlvo publicoAlvo), "Público Alvo inválido.")
+                .Quando(cursoJaSalvo != null, "Nome do Curso já consta no banco de dados.")
+                .DispararExcecaoSeExistir();
 
             var curso = new Curso(cursoDto.Nome, cursoDto.Descricao, cursoDto.CargaHoraria, publicoAlvo, cursoDto.Valor);
 

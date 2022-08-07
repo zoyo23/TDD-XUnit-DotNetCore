@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using CursoOnline.Dominio._Base;
 using CursoOnline.Dominio.Domain;
 using CursoOnline.Dominio.Test._Builders;
 using CursoOnline.Dominio.Test._Util;
@@ -70,7 +71,7 @@ namespace CursoOnline.Dominio.Test.Cursos
             #endregion            
 
             #region Assert (Afirmação)
-            Assert.Throws<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
+            Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
                 .ComMensagem("Nome do Curso já consta no banco de dados.");
             #endregion
         }
@@ -87,7 +88,7 @@ namespace CursoOnline.Dominio.Test.Cursos
             #endregion
 
             #region Assert (Afirmação)
-            Assert.Throws<ArgumentException>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
+            Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
                 .ComMensagem("Público Alvo inválido.");
             #endregion
         }

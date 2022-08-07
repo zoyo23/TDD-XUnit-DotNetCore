@@ -1,4 +1,5 @@
 ﻿using CursoOnline.Dominio._Base;
+using System;
 
 namespace CursoOnline.Dominio.Domain
 {
@@ -18,7 +19,7 @@ namespace CursoOnline.Dominio.Domain
         public Curso(string nome, string descricao, double cargaHoraria, PublicoAlvo publicoAlvo, double valor)
         {
             ValidadorDeRegra.Novo()
-                .Quando(string.IsNullOrEmpty(nome), "Nome obrigatório.")
+                .Quando(string.IsNullOrEmpty(nome), "Nome Inválido.")
                 .Quando(cargaHoraria < 1, "Carga horária deve ser maior que 1 hora.")
                 .Quando(valor < 1, "Valor deve ser maior que R$1,00.")
                 .DispararExcecaoSeExistir();
@@ -27,6 +28,33 @@ namespace CursoOnline.Dominio.Domain
             Descricao = descricao;
             CargaHoraria = cargaHoraria;
             PublicoAlvo = publicoAlvo;
+            Valor = valor;
+        }
+
+        public void AlterarNome(string nome)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(string.IsNullOrEmpty(nome), "Nome Inválido.")
+                .DispararExcecaoSeExistir();
+
+            Nome = nome;
+        }
+
+        public void AlterarCargaHoraria(double cargaHoraria)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(cargaHoraria < 1, "Carga horária deve ser maior que 1 hora.")
+                .DispararExcecaoSeExistir();
+
+            CargaHoraria = cargaHoraria;
+        }
+
+        public void AlterarValor(double valor)
+        {
+            ValidadorDeRegra.Novo()
+                .Quando(valor < 1, "Valor deve ser maior que R$1,00.")
+                .DispararExcecaoSeExistir();
+
             Valor = valor;
         }
         #endregion
