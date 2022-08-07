@@ -39,7 +39,7 @@ namespace CursoOnline.Dominio.Domain
 
             if (cursoDto.Id == 0)
             {
-                _cursoRepositorio.Adicionar(curso);
+                _cursoRepositorio.Adicionar(curso); 
             }
         }
         #endregion
