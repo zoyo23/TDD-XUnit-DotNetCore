@@ -2,6 +2,8 @@
 {
     public static class Resource
     {
+        public static string EmailInvalido { get; set; } = "Email Inválido.";
+        public static string CpfInvalido { get; set; } = "CPF Inválido.";
         public static string NomeInvalido { get; internal set; } = "Nome Inválido.";
         public static string CargaHorariaInvalida { get; internal set; } = "Carga horária deve ser maior que 1 hora..";
         public static string ValorInvalido { get; internal set; } = "Valor deve ser maior que R$1,00..";

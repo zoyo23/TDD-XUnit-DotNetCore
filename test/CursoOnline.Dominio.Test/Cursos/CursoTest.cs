@@ -6,7 +6,6 @@ using CursoOnline.Dominio.Test._Util;
 using ExpectedObjects;
 using System;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace CursoOnline.Dominio.Test.Cursos
 {
@@ -14,15 +13,15 @@ namespace CursoOnline.Dominio.Test.Cursos
     {
         #region Atributos
         private readonly Faker _faker;
+
         private readonly string _nome;
         private readonly double _cargaHoraria;
         private readonly PublicoAlvo _publicoAlvo;
         private readonly double _valor;
         private readonly string _descricao;
-
         #endregion
 
-        #region Construtores e Dispose
+        #region Construtores
         public CursoTest()
         {
             _faker = new Faker();

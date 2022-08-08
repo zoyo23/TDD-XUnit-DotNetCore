@@ -1,5 +1,4 @@
 ﻿using CursoOnline.Dominio._Base;
-using System;
 
 namespace CursoOnline.Dominio.Domain
 {
@@ -31,6 +30,11 @@ namespace CursoOnline.Dominio.Domain
             Valor = valor;
         }
 
+        #endregion
+        
+        #region Métodos
+        
+        #region Mètodos Públicos
         public void AlterarNome(string nome)
         {
             ValidadorDeRegra.Novo()
@@ -57,6 +61,8 @@ namespace CursoOnline.Dominio.Domain
 
             Valor = valor;
         }
+        #endregion
+
         #endregion
     }
 }
