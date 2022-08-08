@@ -4,6 +4,7 @@ using CursoOnline.Dominio.Domain;
 using CursoOnline.Dominio.Test._Builders;
 using CursoOnline.Dominio.Test._Util;
 using Moq;
+using System;
 using Xunit;
 
 namespace CursoOnline.Dominio.Test.Cursos
@@ -62,15 +63,16 @@ namespace CursoOnline.Dominio.Test.Cursos
         public void NaoDeveAdicionarCursoComMesmoNomeDeOutroJaSalvo()
         {
             #region Arrange (Organização)
-            var cursoJaSalvo = CursoBuilder.Novo().ComNome(_cursoDto.Nome).Build();
+            var cursoJaSalvo = CursoBuilder.Novo().ComId(432).ComNome(_cursoDto.Nome).Build();
             _cursoRepositoryMock.Setup(r => r.ObterPeloNome(_cursoDto.Nome)).Returns(cursoJaSalvo);
             #endregion
 
             #region Act (Ação)
-            #endregion            
+            Action act = () => _armazenadorDeCurso.Armazenar(_cursoDto);
+            #endregion
 
             #region Assert (Afirmação)
-            Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
+            Assert.Throws<ExcecaoDeDominio>(act)
                 .ComMensagem(Resource.NomeCursoJaExiste);
             #endregion
         }

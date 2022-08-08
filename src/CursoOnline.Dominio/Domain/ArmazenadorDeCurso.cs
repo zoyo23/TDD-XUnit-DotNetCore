@@ -23,7 +23,7 @@ namespace CursoOnline.Dominio.Domain
 
             ValidadorDeRegra.Novo()
                 .Quando(!Enum.TryParse<PublicoAlvo>(cursoDto.PublicoAlvo, out PublicoAlvo publicoAlvo), Resource.PublicoAlvoInvalido)
-                .Quando(cursoJaSalvo != null, Resource.NomeCursoJaExiste)
+                .Quando((cursoJaSalvo != null && cursoJaSalvo.Id != cursoDto.Id), Resource.NomeCursoJaExiste)
                 .DispararExcecaoSeExistir();
 
             var curso = new Curso(cursoDto.Nome, cursoDto.Descricao, cursoDto.CargaHoraria, publicoAlvo, cursoDto.Valor);
@@ -39,7 +39,7 @@ namespace CursoOnline.Dominio.Domain
 
             if (cursoDto.Id == 0)
             {
-                _cursoRepositorio.Adicionar(curso); 
+                _cursoRepositorio.Adicionar(curso);
             }
         }
         #endregion
