@@ -1,4 +1,5 @@
 ﻿using CursoOnline.Dominio._Base;
+using CursoOnline.Dominio.PublicosAlvo;
 
 namespace CursoOnline.Dominio.Domain
 {
@@ -31,9 +32,9 @@ namespace CursoOnline.Dominio.Domain
         }
 
         #endregion
-        
+
         #region Métodos
-        
+
         #region Mètodos Públicos
         public void AlterarNome(string nome)
         {

@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using CursoOnline.Dominio._Base;
 using CursoOnline.Dominio.Domain;
+using CursoOnline.Dominio.PublicosAlvo;
 using CursoOnline.Dominio.Test._Builders;
 using CursoOnline.Dominio.Test._Util;
 using Moq;
@@ -15,6 +16,8 @@ namespace CursoOnline.Dominio.Test.Cursos
         private readonly CursoDto _cursoDto;
         private readonly ArmazenadorDeCurso _armazenadorDeCurso;
         private readonly Mock<ICursoRepositorio> _cursoRepositoryMock;
+        private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
+
         #endregion
 
         #region Construtores
@@ -32,8 +35,8 @@ namespace CursoOnline.Dominio.Test.Cursos
             };
 
             _cursoRepositoryMock = new Mock<ICursoRepositorio>();
-
-            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositoryMock.Object);
+            _conversorDePublicoAlvo = new Mock<IConversorDePublicoAlvo>();
+            _armazenadorDeCurso = new ArmazenadorDeCurso(_cursoRepositoryMock.Object, _conversorDePublicoAlvo.Object);
         }
         #endregion
 
@@ -74,23 +77,6 @@ namespace CursoOnline.Dominio.Test.Cursos
             #region Assert (Afirmação)
             Assert.Throws<ExcecaoDeDominio>(act)
                 .ComMensagem(Resource.NomeCursoJaExiste);
-            #endregion
-        }
-
-        [Fact]
-        public void NaoDeveInformarPublicoAlvoInvalido()
-        {
-            #region Arrange (Organização)
-            var publicoAlvoInvalido = "Médico";
-            _cursoDto.PublicoAlvo = publicoAlvoInvalido;
-            #endregion
-
-            #region Act (Ação)
-            #endregion
-
-            #region Assert (Afirmação)
-            Assert.Throws<ExcecaoDeDominio>(() => _armazenadorDeCurso.Armazenar(_cursoDto))
-                .ComMensagem(Resource.PublicoAlvoInvalido);
             #endregion
         }
 

@@ -1,4 +1,5 @@
 ﻿using CursoOnline.Dominio._Base;
+using CursoOnline.Dominio.PublicosAlvo;
 using System.Text.RegularExpressions;
 
 namespace CursoOnline.Dominio.Domain
@@ -22,8 +23,8 @@ namespace CursoOnline.Dominio.Domain
         {
             ValidadorDeRegra.Novo()
                 .Quando(string.IsNullOrEmpty(nome), Resource.NomeInvalido)
-                .Quando((string.IsNullOrEmpty(email) || !_emailRegex.Match(email).Success), Resource.EmailInvalido)
-                .Quando((string.IsNullOrEmpty(cpf) || !_cpfRegex.Match(cpf).Success), Resource.CpfInvalido)
+                .Quando(string.IsNullOrEmpty(email) || !_emailRegex.Match(email).Success, Resource.EmailInvalido)
+                .Quando(string.IsNullOrEmpty(cpf) || !_cpfRegex.Match(cpf).Success, Resource.CpfInvalido)
                 .DispararExcecaoSeExistir();
 
             Nome = nome;

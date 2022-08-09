@@ -1,4 +1,5 @@
 ﻿using CursoOnline.Dominio._Base;
+using CursoOnline.Dominio.PublicosAlvo;
 using System;
 
 namespace CursoOnline.Dominio.Domain
@@ -7,12 +8,14 @@ namespace CursoOnline.Dominio.Domain
     {
         #region Atributos
         private readonly IAlunoRepositorio _alunoRepositorio;
+        private readonly IConversorDePublicoAlvo _conversorDePublicoAlvo;
         #endregion
 
         #region Construtores
-        public ArmazenadorDeAluno(IAlunoRepositorio alunoRepositorio)
+        public ArmazenadorDeAluno(IAlunoRepositorio alunoRepositorio, IConversorDePublicoAlvo conversorDePublicoAlvo)
         {
             _alunoRepositorio = alunoRepositorio;
+            _conversorDePublicoAlvo = conversorDePublicoAlvo;
         }
 
         public void Armazenar(AlunoDto alunoDto)
@@ -20,9 +23,10 @@ namespace CursoOnline.Dominio.Domain
             var alunoJaCadastrado = _alunoRepositorio.ObterPeloCpf(alunoDto.Cpf);
 
             ValidadorDeRegra.Novo()
-                .Quando((alunoJaCadastrado != null && alunoJaCadastrado.Id != alunoDto.Id), Resource.CpfJaCadastrado)
-                .Quando(!Enum.TryParse<PublicoAlvo>(alunoDto.PublicoAlvo, out PublicoAlvo publicoAlvo), Resource.PublicoAlvoInvalido)
+                .Quando(alunoJaCadastrado != null && alunoJaCadastrado.Id != alunoDto.Id, Resource.CpfJaCadastrado)
                 .DispararExcecaoSeExistir();
+            
+            var publicoAlvo = _conversorDePublicoAlvo.Converter(alunoDto.PublicoAlvo);
 
             if (alunoDto.Id == 0)
             {
