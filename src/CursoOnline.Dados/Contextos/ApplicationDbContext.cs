@@ -1,4 +1,5 @@
-﻿using CursoOnline.Dominio.Domain;
+﻿using CursoOnline.Dominio.Alunos;
+using CursoOnline.Dominio.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace CursoOnline.Dados.Contextos
 
         #region Atributos / DBSet
         public DbSet<Curso> Cursos { get; set; }
+        public DbSet<Aluno> Alunos { get; set; }
         #endregion
 
         #region Métodos 

@@ -1,16 +1,16 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CursoOnline.Dominio.Cursos
+namespace CursoOnline.Dominio.Alunos
 {
     [ExcludeFromCodeCoverage]
-    public class CursoParaListagemDto
+    public class AlunoParaListagemDto
     {
         #region Atributos
         public int Id { get; set; }
         public string Nome { get; set; }
-        public double CargaHoraria { get; set; }
+        public string Email { get; set; }
+        public string Cpf { get; set; }
         public string PublicoAlvo { get; set; }
-        public double Valor { get; set; }
         #endregion
     }
 }

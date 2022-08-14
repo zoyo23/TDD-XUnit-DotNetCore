@@ -1,6 +1,6 @@
 ﻿using CursoOnline.Dominio._Base;
 
-namespace CursoOnline.Dominio.Domain
+namespace CursoOnline.Dominio.Alunos
 {
     public interface IAlunoRepositorio : IRepositorio<Aluno>
     {

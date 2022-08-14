@@ -1,4 +1,4 @@
-﻿using CursoOnline.Dominio.Domain;
+﻿using CursoOnline.Dominio.Alunos;
 using CursoOnline.Dominio.PublicosAlvo;
 using System;
 
@@ -15,7 +15,10 @@ namespace CursoOnline.Dominio.Test._Builders
         #endregion
 
         #region Métodos
-        public static AlunoBuilder Novo() => new AlunoBuilder();
+        public static AlunoBuilder Novo()
+        {
+            return new AlunoBuilder();
+        }
 
         public Aluno Build()
         {

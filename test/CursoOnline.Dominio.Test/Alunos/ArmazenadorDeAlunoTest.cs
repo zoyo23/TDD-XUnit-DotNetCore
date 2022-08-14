@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Bogus.Extensions.Brazil;
 using CursoOnline.Dominio._Base;
-using CursoOnline.Dominio.Domain;
+using CursoOnline.Dominio.Alunos;
 using CursoOnline.Dominio.PublicosAlvo;
 using CursoOnline.Dominio.Test._Builders;
 using CursoOnline.Dominio.Test._Util;
@@ -15,7 +15,7 @@ namespace CursoOnline.Dominio.Test.Alunos
     {
         #region Atributos
         private readonly Faker _faker;
-        private AlunoDto _alunoDto;
+        private readonly AlunoDto _alunoDto;
         private readonly Mock<IAlunoRepositorio> _alunoRepositorio;
         private readonly Mock<IConversorDePublicoAlvo> _conversorDePublicoAlvo;
         private readonly ArmazenadorDeAluno _armazenadorDeAluno;

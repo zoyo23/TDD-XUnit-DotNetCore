@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Alunos\" />
     <Folder Include="Matriculas\" />
   </ItemGroup>
 

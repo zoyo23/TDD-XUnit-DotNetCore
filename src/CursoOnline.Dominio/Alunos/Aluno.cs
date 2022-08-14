@@ -2,7 +2,7 @@
 using CursoOnline.Dominio.PublicosAlvo;
 using System.Text.RegularExpressions;
 
-namespace CursoOnline.Dominio.Domain
+namespace CursoOnline.Dominio.Alunos
 {
     public class Aluno : Entidade
     {

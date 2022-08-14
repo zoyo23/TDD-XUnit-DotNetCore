@@ -1,8 +1,7 @@
 ﻿using CursoOnline.Dominio._Base;
 using CursoOnline.Dominio.PublicosAlvo;
-using System;
 
-namespace CursoOnline.Dominio.Domain
+namespace CursoOnline.Dominio.Alunos
 {
     public class ArmazenadorDeAluno
     {
@@ -25,7 +24,7 @@ namespace CursoOnline.Dominio.Domain
             ValidadorDeRegra.Novo()
                 .Quando(alunoJaCadastrado != null && alunoJaCadastrado.Id != alunoDto.Id, Resource.CpfJaCadastrado)
                 .DispararExcecaoSeExistir();
-            
+
             var publicoAlvo = _conversorDePublicoAlvo.Converter(alunoDto.PublicoAlvo);
 
             if (alunoDto.Id == 0)
