@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CursoOnline.Dominio.Domain
+namespace CursoOnline.Dominio.Cursos
 {
     [ExcludeFromCodeCoverage]
     public class CursoDto

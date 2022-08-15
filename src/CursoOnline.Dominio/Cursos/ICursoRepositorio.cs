@@ -1,4 +1,4 @@
-﻿namespace CursoOnline.Dominio.Domain
+﻿namespace CursoOnline.Dominio.Cursos
 {
     public interface ICursoRepositorio
     {

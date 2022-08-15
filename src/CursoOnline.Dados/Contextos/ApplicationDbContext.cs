@@ -1,5 +1,5 @@
 ﻿using CursoOnline.Dominio.Alunos;
-using CursoOnline.Dominio.Domain;
+using CursoOnline.Dominio.Cursos;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 

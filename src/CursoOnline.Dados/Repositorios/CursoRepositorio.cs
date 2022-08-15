@@ -1,6 +1,6 @@
 ﻿using CursoOnline.Dados.Contextos;
 using CursoOnline.Dados.Repositorios;
-using CursoOnline.Dominio.Domain;
+using CursoOnline.Dominio.Cursos;
 using System.Linq;
 
 namespace CursoOnline.Dados

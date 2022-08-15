@@ -1,4 +1,4 @@
-﻿using CursoOnline.Dominio.Domain;
+﻿using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.PublicosAlvo;
 using System;
 

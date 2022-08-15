@@ -1,7 +1,7 @@
 ﻿using CursoOnline.Dominio._Base;
 using CursoOnline.Dominio.PublicosAlvo;
 
-namespace CursoOnline.Dominio.Domain
+namespace CursoOnline.Dominio.Cursos
 {
     public class ArmazenadorDeCurso
     {

@@ -3,7 +3,7 @@ using CursoOnline.Dados.Contextos;
 using CursoOnline.Dados.Repositorios;
 using CursoOnline.Dominio._Base;
 using CursoOnline.Dominio.Alunos;
-using CursoOnline.Dominio.Domain;
+using CursoOnline.Dominio.Cursos;
 using CursoOnline.Dominio.PublicosAlvo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

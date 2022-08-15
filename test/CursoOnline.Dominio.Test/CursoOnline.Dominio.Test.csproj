@@ -22,8 +22,4 @@
     <ProjectReference Include="..\..\src\CursoOnline.Dominio\CursoOnline.Dominio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Matriculas\" />
-  </ItemGroup>
-
 </Project>

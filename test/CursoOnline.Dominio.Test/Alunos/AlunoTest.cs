@@ -15,11 +15,6 @@ namespace CursoOnline.Dominio.Test.Alunos
     {
         #region Atributos
         private readonly Faker _faker;
-
-        private readonly string _nome;
-        private readonly string _email;
-        private readonly string _cpf;
-        private readonly PublicoAlvo _publicoAlvo;
         #endregion
 
         #region Construtores
