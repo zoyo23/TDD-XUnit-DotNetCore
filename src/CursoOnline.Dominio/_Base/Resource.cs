@@ -14,5 +14,8 @@
         public static string CursoInvalido { get; private set; } = "Curso Inválido.";
         public static string ValorPagoInvalido { get; private set; } = "Valor Pago Inválido.";
         public static string ValorPagoMaiorQueValorDoCurso { get; private set; } = "Valor Pago Maior Que Valor do Curso.";
+        public static string PublicosAlvoDiferentes { get; private set; } = "Publicos Alvos Diferentes.";
+        public static string CursoNaoEncontrado { get; private set; } = "Curso não encontrado.";
+        public static string AlunoNaoEncontrado { get; private set; } = "Aluno não encontrado.";
     }
 }

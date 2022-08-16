@@ -51,7 +51,7 @@ namespace CursoOnline.Dominio.Test._Builders
             return this;
         }
 
-        public AlunoBuilder ComCargaPublicoAlvo(PublicoAlvo publicoAlvo)
+        public AlunoBuilder ComPublicoAlvo(PublicoAlvo publicoAlvo)
         {
             _publicoAlvo = publicoAlvo;
             return this;

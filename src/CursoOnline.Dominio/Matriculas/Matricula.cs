@@ -18,6 +18,7 @@ namespace CursoOnline.Dominio.Matriculas
                 .Quando(curso == null, Resource.CursoInvalido)
                 .Quando(valorPago < 1, Resource.ValorPagoInvalido)
                 .Quando(curso != null && valorPago > curso.Valor, Resource.ValorPagoMaiorQueValorDoCurso)
+                .Quando(curso != null && aluno != null && aluno.PublicoAlvo != curso.PublicoAlvo, Resource.PublicosAlvoDiferentes)
                 .DispararExcecaoSeExistir();
 
             Aluno = aluno;

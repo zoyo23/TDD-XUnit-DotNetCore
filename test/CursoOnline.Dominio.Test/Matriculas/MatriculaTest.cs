@@ -25,10 +25,10 @@ namespace CursoOnline.Dominio.Test.Matriculas
         public void DeveCriarMatricula()
         {
             #region Arrange
-            var curso = CursoBuilder.Novo().Build();
+            var curso = CursoBuilder.Novo().ComPublicoAlvo(Dominio.PublicosAlvo.PublicoAlvo.Empreendedor).Build();
             var matriculaEsperada = new
             {
-                Aluno = AlunoBuilder.Novo().Build(),
+                Aluno = AlunoBuilder.Novo().ComPublicoAlvo(Dominio.PublicosAlvo.PublicoAlvo.Empreendedor).Build(),
                 Curso = curso,
                 ValorPago = curso.Valor
             };
@@ -116,7 +116,7 @@ namespace CursoOnline.Dominio.Test.Matriculas
         public void DeveIndicarQueHouveDescontoNaMatricula()
         {
             #region Arrange
-            var curso = CursoBuilder.Novo().ComValor(100).Build();
+            var curso = CursoBuilder.Novo().ComValor(100).ComPublicoAlvo(Dominio.PublicosAlvo.PublicoAlvo.Empreendedor).Build();
             double ValorPagoComDesconto = curso.Valor - 10;
             #endregion
 
@@ -126,6 +126,24 @@ namespace CursoOnline.Dominio.Test.Matriculas
 
             #region Assert
             Assert.True(matricula.TemDesconto);
+            #endregion
+        }
+
+        [Fact]
+        public void NaoDevePublicoAlvoDeAlunoECursoSeremDiferentes()
+        {
+            #region Arrange
+            var curso = CursoBuilder.Novo().ComPublicoAlvo(Dominio.PublicosAlvo.PublicoAlvo.Empregado).Build();
+            var aluno = AlunoBuilder.Novo().ComPublicoAlvo(Dominio.PublicosAlvo.PublicoAlvo.Universitario).Build();
+            #endregion
+
+            #region Act
+            Action act = () => MatriculaBuilder.Novo().ComCurso(curso).ComAluno(aluno).Build();
+            #endregion
+
+            #region Assert
+            Assert.Throws<ExcecaoDeDominio>(act)
+                .ComMensagem(Resource.PublicosAlvoDiferentes);
             #endregion
         }
         #endregion
