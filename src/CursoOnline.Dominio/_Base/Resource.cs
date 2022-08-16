@@ -17,5 +17,7 @@
         public static string PublicosAlvoDiferentes { get; private set; } = "Publicos Alvos Diferentes.";
         public static string CursoNaoEncontrado { get; private set; } = "Curso não encontrado.";
         public static string AlunoNaoEncontrado { get; private set; } = "Aluno não encontrado.";
+        public static string NotaDoAlunoInvalida { get; private set; } = "Nota Do Aluno Invalida.";
+        public static string MatriculaNaoEncontrada { get; private set; } = "Matricula não encontrada.";
     }
 }

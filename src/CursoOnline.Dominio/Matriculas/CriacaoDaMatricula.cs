@@ -13,7 +13,9 @@ namespace CursoOnline.Dominio.Matriculas
         #endregion
 
         #region Construtores
-        public CriacaoDaMatricula(IAlunoRepositorio alunoRepositorio, ICursoRepositorio cursoRepositorio, IMatriculaRepositorio matriculaRepositorio)
+        public CriacaoDaMatricula(IAlunoRepositorio alunoRepositorio,
+                                  ICursoRepositorio cursoRepositorio,
+                                  IMatriculaRepositorio matriculaRepositorio)
         {
             _alunoRepositorio = alunoRepositorio;
             _cursoRepositorio = cursoRepositorio;
