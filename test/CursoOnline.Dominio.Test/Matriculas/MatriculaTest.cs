@@ -199,6 +199,57 @@ namespace CursoOnline.Dominio.Test.Matriculas
                 .ComMensagem(Resource.NotaDoAlunoInvalida);
             #endregion
         }
+
+        [Fact]
+        public void DeveCancelarMatricula()
+        {
+            #region Arrange
+            var matricula = MatriculaBuilder.Novo().Build();
+            #endregion
+
+            #region Act
+            matricula.Cancelar();
+            #endregion
+
+            #region Assert
+            Assert.True(matricula.Cancelada);
+            #endregion
+        }
+
+        [Fact]
+        public void NaoDeveInformarNotaQuandoMatriculaCancelada()
+        {
+            #region Arrange
+            var notaDoAluno = 3;
+            var matricula = MatriculaBuilder.Novo().ComCancelada(true).Build();
+            #endregion
+
+            #region Act
+            Action act = () => matricula.InformarNota(notaDoAluno);
+            #endregion
+
+            #region Assert
+            Assert.Throws<ExcecaoDeDominio>(act)
+                .ComMensagem(Resource.MatriculaCancelada);
+            #endregion
+        }
+
+        [Fact]
+        public void NaoDeveCancelarQuandoMatriculaConcluida()
+        {
+            #region Arrange
+            var matricula = MatriculaBuilder.Novo().ComConcluido(true).Build();
+            #endregion
+
+            #region Act
+            Action act = () => matricula.Cancelar();
+            #endregion
+
+            #region Assert
+            Assert.Throws<ExcecaoDeDominio>(act)
+                .ComMensagem(Resource.MatriculaConcluida);
+            #endregion
+        }
         #endregion
     }
 }

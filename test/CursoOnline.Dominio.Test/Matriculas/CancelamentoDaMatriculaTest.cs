@@ -8,41 +8,40 @@ using Xunit;
 
 namespace CursoOnline.Dominio.Test.Matriculas
 {
-    public class ConclusaoDaMatriculaTest
+    public class CancelamentoDaMatriculaTest
     {
         #region Atributos
         private readonly Mock<IMatriculaRepositorio> _mockMatriculaRepositorio;
-        private readonly ConclusaoDaMatricula _conclusaoDaMatricula;
+        private readonly CancelamentoDaMatricula _cancelamentoDaMatricula;
+
         #endregion
 
         #region Construtores
-        public ConclusaoDaMatriculaTest()
+        public CancelamentoDaMatriculaTest()
         {
+
             _mockMatriculaRepositorio = new Mock<IMatriculaRepositorio>();
-            _conclusaoDaMatricula = new ConclusaoDaMatricula(_mockMatriculaRepositorio.Object);
+            _cancelamentoDaMatricula = new CancelamentoDaMatricula(_mockMatriculaRepositorio.Object);
         }
         #endregion
 
         #region Testes
         [Fact]
-        public void DeveInformarNotaDoAluno()
+        public void DeveCancelarMatricula()
         {
             #region Arrange
-            var notaDoAlunoEsperada = 8;
             var matricula = MatriculaBuilder.Novo().Build();
-            var conclusaoDaMatricula = new ConclusaoDaMatricula(_mockMatriculaRepositorio.Object);
-
             _mockMatriculaRepositorio
                 .Setup(r => r.ObterPorId(matricula.Id))
                 .Returns(matricula);
             #endregion
 
             #region Act
-            conclusaoDaMatricula.Concluir(matricula.Id, notaDoAlunoEsperada);
+            _cancelamentoDaMatricula.Cancelar(matricula.Id);
             #endregion
 
             #region Assert
-            Assert.Equal(notaDoAlunoEsperada, matricula.NotaDoAluno);
+            Assert.True(matricula.Cancelada);
             #endregion
         }
 
@@ -52,7 +51,6 @@ namespace CursoOnline.Dominio.Test.Matriculas
             #region Arrange
             Matricula matriculaInvalida = null;
             var matriculaIdInvalida = 1;
-            var notaDoAluno = 2;
 
             _mockMatriculaRepositorio
                 .Setup(r => r.ObterPorId(matriculaIdInvalida))
@@ -60,7 +58,7 @@ namespace CursoOnline.Dominio.Test.Matriculas
             #endregion
 
             #region Act
-            Action act = () => _conclusaoDaMatricula.Concluir(matriculaIdInvalida, notaDoAluno);
+            Action act = () =>_cancelamentoDaMatricula.Cancelar(matriculaIdInvalida);
             #endregion
 
             #region Assert

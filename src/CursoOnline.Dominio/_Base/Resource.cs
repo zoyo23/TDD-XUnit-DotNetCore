@@ -2,6 +2,7 @@
 {
     public static class Resource
     {
+
         public static string EmailInvalido { get; private set; } = "Email Inválido.";
         public static string CpfInvalido { get; private set; } = "CPF Inválido.";
         public static string CpfJaCadastrado { get; private set; } = "CPF já cadastrado anteriormente.";
@@ -19,5 +20,7 @@
         public static string AlunoNaoEncontrado { get; private set; } = "Aluno não encontrado.";
         public static string NotaDoAlunoInvalida { get; private set; } = "Nota Do Aluno Invalida.";
         public static string MatriculaNaoEncontrada { get; private set; } = "Matricula não encontrada.";
+        public static string MatriculaCancelada { get; private set; } = "Matricula já cancelada.";
+        public static string MatriculaConcluida { get; private set; } = "Matricula já concluída.";
     }
 }

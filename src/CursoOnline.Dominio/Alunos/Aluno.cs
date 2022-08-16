@@ -32,7 +32,11 @@ namespace CursoOnline.Dominio.Alunos
             Cpf = cpf;
             PublicoAlvo = publicoAlvo;
         }
+        #endregion
 
+        #region Métodos
+
+        #region Métodos Públicos
         public void AlterarNome(string nome)
         {
             ValidadorDeRegra.Novo()
@@ -41,12 +45,6 @@ namespace CursoOnline.Dominio.Alunos
 
             Nome = nome;
         }
-        #endregion
-
-        #region Métodos
-
-        #region Métodos Públicos
-
         #endregion
 
         #endregion

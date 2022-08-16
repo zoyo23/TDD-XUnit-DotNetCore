@@ -10,6 +10,8 @@ namespace CursoOnline.Dominio.Test._Builders
         protected Aluno Aluno;
         protected Curso Curso;
         protected double ValorPago;
+        protected bool Cancelada;
+        protected bool Concluido;
         #endregion
 
         #region Métodos
@@ -29,11 +31,16 @@ namespace CursoOnline.Dominio.Test._Builders
         {
             var matricula = new Matricula(Aluno, Curso, ValorPago);
 
-            //if (_id > 0)
-            //{
-            //    var propertyInfo = curso.GetType().GetProperty("Id");
-            //    propertyInfo.SetValue(curso, Convert.ChangeType(_id, propertyInfo.PropertyType), null);
-            //}
+            if (Cancelada)
+            {
+                matricula.Cancelar();
+            }
+
+            if (Concluido)
+            {
+                var notaDoAluno = 7;
+                matricula.InformarNota(notaDoAluno);
+            }
 
             return matricula;
         }
@@ -56,11 +63,17 @@ namespace CursoOnline.Dominio.Test._Builders
             return this;
         }
 
-        //internal MatriculaBuilder ComId(int id)
-        //{
-        //    _id = id;
-        //    return this;
-        //}
+        internal MatriculaBuilder ComCancelada(bool cancelada)
+        {
+            Cancelada = cancelada;
+            return this;
+        }
+
+        internal MatriculaBuilder ComConcluido(bool concluido)
+        {
+            Concluido = concluido;
+            return this;
+        }
         #endregion
     }
 }
