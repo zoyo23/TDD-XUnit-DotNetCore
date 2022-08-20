@@ -7,8 +7,8 @@
         public static string CpfInvalido { get; private set; } = "CPF Inválido.";
         public static string CpfJaCadastrado { get; private set; } = "CPF já cadastrado anteriormente.";
         public static string NomeInvalido { get; private set; } = "Nome Inválido.";
-        public static string CargaHorariaInvalida { get; private set; } = "Carga horária deve ser maior que 1 hora..";
-        public static string ValorInvalido { get; private set; } = "Valor deve ser maior que R$1,00..";
+        public static string CargaHorariaInvalida { get; private set; } = "Carga horária deve ser maior que 1 hora.";
+        public static string ValorInvalido { get; private set; } = "Valor deve ser maior que R$1,00.";
         public static string PublicoAlvoInvalido { get; private set; } = "Público Alvo inválido.";
         public static string NomeCursoJaExiste { get; private set; } = "Nome do Curso já consta no banco de dados.";
         public static string AlunoInvalido { get; private set; } = "Aluno Inválido.";
